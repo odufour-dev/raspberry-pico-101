@@ -2,8 +2,11 @@
 build: configure
 	docker run --name pico-sdk --rm -v ${PWD}:/home/dev -w /home/dev/ pico-sdk:latest cmake --build _build
 
+clean:
+	sudo rm -Rf _build
+
 configure:
-	docker run --name pico-sdk --rm -v ${PWD}:/home/dev -w /home/dev/ pico-sdk:latest cmake -B _build . -DPICO_BOARD=pico_w
+	docker run --name pico-sdk --rm -v ${PWD}:/home/dev -w /home/dev/ pico-sdk:latest cmake -B _build . -DPICO_BOARD=pico_w -DPICO_SDK_PATH=/usr/local/picosdk
 
 install: build
 	docker run --name pico-sdk --rm -v ${PWD}:/home/dev -w /home/dev/ pico-sdk:latest cmake --install _build
