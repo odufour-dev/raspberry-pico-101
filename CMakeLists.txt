@@ -8,8 +8,9 @@ pico_sdk_init()
 
 add_executable(${PROJECT_NAME} sources/main.c)
 
-target_link_libraries(${PROJECT_NAME} pico_stdlib)
+target_link_libraries(${PROJECT_NAME} pico_stdlib pico_cyw43_arch_none)
 
 pico_add_extra_outputs(${PROJECT_NAME})
+# example_auto_set_url(${PROJECT_NAME})
 
-install(TARGETS ${PROJECT_NAME} DESTINATION /home/dev/bin)
+# install(TARGETS ${PROJECT_NAME} DESTINATION /home/dev/bin)
