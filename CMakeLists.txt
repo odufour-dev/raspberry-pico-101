@@ -16,6 +16,9 @@ add_subdirectory(sources/pico_led)
 target_link_libraries(${PROJECT_NAME} PRIVATE pico_led)
 
 pico_add_extra_outputs(${PROJECT_NAME})
+
+pico_enable_stdio_usb(${PROJECT_NAME} 1)
+pico_enable_stdio_uart(${PROJECT_NAME} 1)
 # example_auto_set_url(${PROJECT_NAME})
 
 # install(TARGETS ${PROJECT_NAME} DESTINATION /home/dev/bin)
