@@ -1,20 +1,22 @@
 
+CMAKE=docker run --name pico-sdk --rm -v ${PWD}:/home/dev:rw --user $(shell id -u) -w /home/dev/ pico-sdk:latest cmake
+
 build: configure
-	docker run --name pico-sdk --rm -v ${PWD}:/home/dev -w /home/dev/ pico-sdk:latest cmake --build _build
+	$(CMAKE) --build _build
 
 clean:
-	sudo rm -Rf _build
+	rm -Rf _build
 
 configure:
-	docker run --name pico-sdk --rm -v ${PWD}:/home/dev -w /home/dev/ pico-sdk:latest cmake -B _build . -DPICO_BOARD=pico_w -DPICO_SDK_PATH=/usr/local/picosdk
+	$(CMAKE) -B _build . -DPICO_BOARD=pico_w -DPICO_SDK_PATH=/usr/local/picosdk
 
 install: build
-	docker run --name pico-sdk --rm -v ${PWD}:/home/dev -w /home/dev/ pico-sdk:latest cmake --install _build
+	$(CMAKE) --install _build
 
 flash: build
-	sudo mount /dev/sda1 /mnt/pico
-	sudo cp _build/simple_example.uf2 /mnt/pico
-	sudo umount /dev/sda1
+	mount /dev/sda1
+	cp _build/simple_example.uf2 /mnt/pico
+	umount /dev/sda1
 
 debug:
 	cat /dev/ttyACM0
