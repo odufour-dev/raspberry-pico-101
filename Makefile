@@ -15,3 +15,7 @@ flash: build
 	sudo mount /dev/sda1 /mnt/pico
 	sudo cp _build/simple_example.uf2 /mnt/pico
 	sudo umount /dev/sda1
+
+debug:
+	cat /dev/ttyACM0
+
